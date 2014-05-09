@@ -1,0 +1,16 @@
+[
+{
+  "modid": "minedroid",
+  "name": "MineDroid",
+  "description": "Just a little MC-Android interface I made in a few weekends.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://www.mrsourcecoded.com",
+  "updateUrl": "",
+  "authors": ["MrSourceCoded"],
+  "credits": "ProfMobius for helping with the Waila-like NBT fetcher",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

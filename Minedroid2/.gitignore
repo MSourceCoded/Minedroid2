@@ -1,0 +1,22 @@
+/build
+/config
+/eclipse
+/gradle
+/.gradle
+/.settings
+/bin
+/logs
+/mods
+/resourcepacks
+/saves
+/screenshots
+/crash-reports
+*.txt
+build.gradle
+gradlew.*
+gradlew
+.classpath
+.project
+Todo list
+server.properties
+/world
