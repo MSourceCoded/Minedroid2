@@ -1,6 +1,13 @@
 package sourcecoded.minedroid2;
 
 import net.minecraftforge.common.MinecraftForge;
+import sourcecoded.mdcomms.SourceComms;
+import sourcecoded.mdcomms.eventsystem.EventBus;
+import sourcecoded.mdcomms.eventsystem.SourceCommsEvent;
+import sourcecoded.mdcomms.eventsystem.event.EventPacketHandled;
+import sourcecoded.mdcomms.eventsystem.event.EventServerReady;
+import sourcecoded.mdcomms.socket.SourceCommsServer;
+import sourcecoded.minedroid2.tick.TickHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -26,14 +33,29 @@ public class Minedroid2 {
     @EventHandler
     public void init(FMLInitializationEvent event){
     	if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-    		//FMLCommonHandler.instance().bus().register(TickHandler.instance());    		
+    		FMLCommonHandler.instance().bus().register(TickHandler.instance());    		
     	}
     	
+    	SourceComms.init();
+    	EventBus.Registry.register(Minedroid2.class);
+    	
+    	SourceCommsServer.instance().setData(1337);
+    	SourceCommsServer.instance().open();
     	
     	MinecraftForge.EVENT_BUS.register(this);
     }
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) { 
+    }
+    
+    @SourceCommsEvent
+    public void onStart(EventServerReady e) {
+    	SourceCommsServer.instance().setListeningState(true);
+    	SourceCommsServer.instance().listen();
+    }
+    
+    @SourceCommsEvent
+    public void onpkt(EventPacketHandled e) {
     }
 }
