@@ -55,7 +55,11 @@ public class MetaUtils {
 		if (is == null) {
 			targ = "Null";
 		} else {
-			targ = is.getDisplayName();
+			try {
+				targ = is.getDisplayName();
+			} catch (Exception e) {
+				targ = "Undefined";
+			}
 		}
 		
 		Pkt1x00Player packet = new Pkt1x00Player((int)player.posX, (int)player.posY, (int)player.posZ, targ);
