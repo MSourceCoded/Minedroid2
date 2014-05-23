@@ -40,21 +40,21 @@ public enum MinedroidPacketHandler {
 		FMLEmbeddedChannel channel = this.channels.get(Side.CLIENT);
 		String codec = channel.findChannelHandlerNameForType(MinedroidCodec.class);
 
-		channel.pipeline().addAfter(codec, "TENBTData", new PacketTENBTData());
+		channel.pipeline().addAfter(codec, "TENBTData", new PktMC0x01TENBTData());
 	}
 
 	private void addServerHandlers() {
 		FMLEmbeddedChannel channel = this.channels.get(Side.SERVER);
 		String codec = channel.findChannelHandlerNameForType(MinedroidCodec.class);
 		
-		channel.pipeline().addAfter(codec, "TERequest", new PacketTERequest());
+		channel.pipeline().addAfter(codec, "TERequest", new PktMC0x00TERequest());
 	}
 
 		private class MinedroidCodec extends FMLIndexedMessageToMessageCodec<IPacket> {
 	
 			public MinedroidCodec() {
-				addDiscriminator(0, PacketTERequest.class);
-				addDiscriminator(1, PacketTENBTData.class);
+				addDiscriminator(0, PktMC0x00TERequest.class);
+				addDiscriminator(1, PktMC0x01TENBTData.class);
 			}
 	
 			@Override

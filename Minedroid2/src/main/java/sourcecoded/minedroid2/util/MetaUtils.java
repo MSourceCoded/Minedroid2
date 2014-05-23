@@ -13,7 +13,7 @@ import sourcecoded.mdcomms.network.packets.Pkt1x02NBTMap;
 import sourcecoded.mdcomms.network.packets.Pkt1x03NBTCancel;
 import sourcecoded.mdcomms.socket.SourceCommsServer;
 import sourcecoded.minedroid2.network.MinedroidPacketHandler;
-import sourcecoded.minedroid2.network.PacketTERequest;
+import sourcecoded.minedroid2.network.PktMC0x00TERequest;
 
 public class MetaUtils {
 
@@ -41,7 +41,7 @@ public class MetaUtils {
 		
 		if (tile != null) {
 			//Sends a packet to the server to retrieve the NBT tag info
-			MinedroidPacketHandler.INSTANCE.sendToServer(new PacketTERequest(tile));			
+			MinedroidPacketHandler.INSTANCE.sendToServer(new PktMC0x00TERequest(tile));			
 			isTile = true;
 		} else isTile = false;
 		

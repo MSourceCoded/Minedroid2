@@ -142,6 +142,13 @@ public class SourceCommsServer {
 	}
 
 	/**
+	 * Stop the server. Use this instead of close
+	 */
+	public void stop() {
+		closeWithError(0, "Server Closed");
+	}
+	
+	/**
 	 * Close the server and the client
 	 */
 	public void close() {

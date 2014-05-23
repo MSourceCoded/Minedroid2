@@ -6,14 +6,14 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import sourcecoded.minedroid2.tick.TickHandler;
 
-public class PacketTENBTData extends SimpleChannelInboundHandler<PacketTENBTData> implements IPacket{
+public class PktMC0x01TENBTData extends SimpleChannelInboundHandler<PktMC0x01TENBTData> implements IPacket{
 
 	NBTTagCompound tags;
 	
-	public PacketTENBTData() {
+	public PktMC0x01TENBTData() {
 	}
 	
-	public PacketTENBTData(NBTTagCompound keys) {
+	public PktMC0x01TENBTData(NBTTagCompound keys) {
 		tags = keys;
 	}
 	
@@ -38,7 +38,7 @@ public class PacketTENBTData extends SimpleChannelInboundHandler<PacketTENBTData
 	}
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, PacketTENBTData msg) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, PktMC0x01TENBTData msg) throws Exception {
 		//Dispatch an NBT Packet to the 'droid
 		TickHandler.instance().meta.fireTEPacket(msg.tags);
 	}

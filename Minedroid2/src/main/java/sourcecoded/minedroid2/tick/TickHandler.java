@@ -33,7 +33,7 @@ public class TickHandler {
 	public void onClientTick(TickEvent.ClientTickEvent e) {
 		tick++;
 		ItemStack targetStack = null;
-		if (tick == 20) {
+		if (tick == 10) {
 			//Dispatch
 			if (SourceCommsServer.instance().isConnected()) {
 				World world = mc.theWorld;

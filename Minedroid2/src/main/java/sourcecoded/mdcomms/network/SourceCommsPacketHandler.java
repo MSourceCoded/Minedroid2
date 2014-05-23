@@ -13,6 +13,8 @@ import sourcecoded.mdcomms.network.packets.Pkt1x00Player;
 import sourcecoded.mdcomms.network.packets.Pkt1x01NBTString;
 import sourcecoded.mdcomms.network.packets.Pkt1x02NBTMap;
 import sourcecoded.mdcomms.network.packets.Pkt1x03NBTCancel;
+import sourcecoded.mdcomms.network.packets.Pkt1x04ChatMessageUnf;
+import sourcecoded.mdcomms.network.packets.Pkt2x00ComputerEvent;
 
 public enum SourceCommsPacketHandler {
 	INSTANCE;
@@ -28,10 +30,14 @@ public enum SourceCommsPacketHandler {
 		public SourceCommsPacketCodec() {
 			addDiscriminator(0, Pkt0x00PingRequest.class);
 			addDiscriminator(1, Pkt0x01PingReply.class);
+			
 			addDiscriminator(10, Pkt1x00Player.class);
 			addDiscriminator(11, Pkt1x01NBTString.class);
 			addDiscriminator(12, Pkt1x02NBTMap.class);
 			addDiscriminator(13, Pkt1x03NBTCancel.class);
+			addDiscriminator(14, Pkt1x04ChatMessageUnf.class);
+			
+			addDiscriminator(20, Pkt2x00ComputerEvent.class);
 		}
 
 		@Override

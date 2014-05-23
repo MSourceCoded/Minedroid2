@@ -5,17 +5,15 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.DimensionManager;
-import cpw.mods.fml.common.FMLCommonHandler;
 
-public class PacketTERequest extends SimpleChannelInboundHandler<PacketTERequest> implements IPacket{
+public class PktMC0x00TERequest extends SimpleChannelInboundHandler<PktMC0x00TERequest> implements IPacket{
 
 	public int dim, posX, posY, posZ;
 	
-	public PacketTERequest() {}
-	public PacketTERequest(TileEntity te) {
+	public PktMC0x00TERequest() {}
+	public PktMC0x00TERequest(TileEntity te) {
 		this.dim = te.getWorldObj().provider.dimensionId;
 		this.posX = te.xCoord;
 		this.posY = te.yCoord;
@@ -33,7 +31,7 @@ public class PacketTERequest extends SimpleChannelInboundHandler<PacketTERequest
 	@Override
 	public void decodeInto(ChannelHandlerContext ctx, ByteBuf dat, IPacket rawmsg) {
 		try {
-			PacketTERequest msg = (PacketTERequest)rawmsg;
+			PktMC0x00TERequest msg = (PktMC0x00TERequest)rawmsg;
 			msg.dim  = dat.readInt();
 			msg.posX = dat.readInt();
 			msg.posY = dat.readInt();
@@ -44,14 +42,14 @@ public class PacketTERequest extends SimpleChannelInboundHandler<PacketTERequest
 	}
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, PacketTERequest msg) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, PktMC0x00TERequest msg) throws Exception {
 		//MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
         TileEntity      tentity = DimensionManager.getWorld(msg.dim).getTileEntity(msg.posX, msg.posY, msg.posZ);
         if (tentity != null){
         	try{
         		NBTTagCompound tag = new NBTTagCompound();
         		tentity.writeToNBT(tag);
-        		ctx.writeAndFlush(new PacketTENBTData(tag)).addListener(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE);
+        		ctx.writeAndFlush(new PktMC0x01TENBTData(tag)).addListener(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE);
         	}catch(Exception e){
         		e.printStackTrace();
         	}

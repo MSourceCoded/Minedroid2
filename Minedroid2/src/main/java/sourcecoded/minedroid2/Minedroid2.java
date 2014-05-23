@@ -7,6 +7,7 @@ import sourcecoded.mdcomms.eventsystem.SourceCommsEvent;
 import sourcecoded.mdcomms.eventsystem.event.EventPacketHandled;
 import sourcecoded.mdcomms.eventsystem.event.EventServerReady;
 import sourcecoded.mdcomms.socket.SourceCommsServer;
+import sourcecoded.minedroid2.events.MDEventHandler;
 import sourcecoded.minedroid2.tick.TickHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -43,6 +44,7 @@ public class Minedroid2 {
     	SourceCommsServer.instance().open();
     	
     	MinecraftForge.EVENT_BUS.register(this);
+    	MinecraftForge.EVENT_BUS.register(new MDEventHandler());
     }
     
     @EventHandler
