@@ -8,15 +8,19 @@ import sourcecoded.mdcomms.SourceComms;
 import sourcecoded.mdcomms.eventsystem.EventBus;
 import sourcecoded.mdcomms.eventsystem.SourceCommsEvent;
 import sourcecoded.mdcomms.eventsystem.event.EventPacketHandled;
+import sourcecoded.mdcomms.eventsystem.event.EventServerClosed;
 import sourcecoded.mdcomms.eventsystem.event.EventServerReady;
 import sourcecoded.mdcomms.network.packets.ISourceCommsPacket;
 import sourcecoded.mdcomms.network.packets.Pkt0x01PingReply;
 import sourcecoded.mdcomms.network.packets.Pkt1x05ChatMessageSend;
 import sourcecoded.mdcomms.socket.SourceCommsServer;
 import sourcecoded.mdcomms.util.PacketUtils;
+import sourcecoded.minedroid2.commandsystem.MinedroidCommandHandler;
 import sourcecoded.minedroid2.commandsystem.MinedroidServerCommand;
 import sourcecoded.minedroid2.events.MDEventHandler;
+import sourcecoded.minedroid2.network.MinedroidPacketHandler;
 import sourcecoded.minedroid2.tick.TickHandler;
+import sourcecoded.minedroid2.util.ChatUtils;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -46,6 +50,10 @@ public class Minedroid2 {
     		FMLCommonHandler.instance().bus().register(TickHandler.instance());    		
     	}
     	
+    	MinedroidPacketHandler.INSTANCE.init();
+    	
+		MinedroidCommandHandler.register();
+    	
     	SourceComms.init();
     	EventBus.Registry.register(Minedroid2.class);
     	
@@ -69,6 +77,18 @@ public class Minedroid2 {
     public void onStart(EventServerReady e) {
     	SourceCommsServer.instance().setListeningState(true);
     	SourceCommsServer.instance().listen();
+    	
+    	ChatUtils.displayInfo("Server Status: ", "OPEN");
+    }
+    
+    @SourceCommsEvent
+    public void onEnd(EventServerClosed e) {
+    	ChatUtils.displayInfo("Server Status: ", "CLOSED");
+    	
+    	if (e.getCode() != 0) {
+    		ChatUtils.displayInfo("   -Code:", e.getCode() + "");
+    		ChatUtils.displayInfo("   -Message:", e.getReason());
+    	}
     }
     
     @SourceCommsEvent

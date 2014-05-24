@@ -1,11 +1,9 @@
 package sourcecoded.minedroid2.commandsystem;
 
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
 import sourcecoded.mdcomms.network.packets.Pkt0x00PingRequest;
 import sourcecoded.mdcomms.socket.SourceCommsServer;
-import sourcecoded.minedroid2.Minedroid2;
+import sourcecoded.minedroid2.util.ChatUtils;
 
 public class MinedroidCommands {
 
@@ -77,8 +75,10 @@ public class MinedroidCommands {
 			boolean listen = SourceCommsServer.instance().isListening();
 			boolean connect = SourceCommsServer.instance().isConnected();
 			
-			Minedroid2.proxy.getClientPlayer().addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + "Connected to client:  " + EnumChatFormatting.AQUA + connect));
-			Minedroid2.proxy.getClientPlayer().addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + "     -Listening for messages: " + EnumChatFormatting.AQUA + listen));
+//			Minedroid2.proxy.getClientPlayer().addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + "Connected to client:  " + EnumChatFormatting.AQUA + connect));
+			ChatUtils.displayInfo("Connected to client: ", connect + "");
+//			Minedroid2.proxy.getClientPlayer().addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + "     -Listening for messages: " + EnumChatFormatting.AQUA + listen));
+			ChatUtils.displayInfo("     -Listening for message", listen + "");
 		}
 
 		@Override
@@ -97,11 +97,12 @@ public class MinedroidCommands {
 		@Override
 		public void processClient(String[] args) {
 			if (args.length != 1) {
-				MinedroidCommandHandler.sendError(usage());
+				ChatUtils.sendError(usage());
 			} else {
 				String usage = MinedroidCommandHandler.getUsage(args[0]);
 				if (usage != null)
-					Minedroid2.proxy.getClientPlayer().addChatComponentMessage(new ChatComponentText("Usage for: " + args[0] + usage));
+//					Minedroid2.proxy.getClientPlayer().addChatComponentMessage(new ChatComponentText("Usage for: " + args[0] + usage));
+					ChatUtils.displayMessage("Usage for: " + args[0] + usage);
 			}
 		}
 

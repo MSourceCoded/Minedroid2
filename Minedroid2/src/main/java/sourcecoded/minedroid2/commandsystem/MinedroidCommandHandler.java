@@ -5,15 +5,14 @@ import java.util.HashMap;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
-import sourcecoded.minedroid2.Minedroid2;
 import sourcecoded.minedroid2.commandsystem.MinedroidCommands.MDCmdPing;
 import sourcecoded.minedroid2.commandsystem.MinedroidCommands.MDCmdServerKill;
 import sourcecoded.minedroid2.commandsystem.MinedroidCommands.MDCmdServerOpen;
 import sourcecoded.minedroid2.commandsystem.MinedroidCommands.MDCmdServerStatus;
+import sourcecoded.minedroid2.commandsystem.MinedroidCommands.MDCmdUsage;
 import sourcecoded.minedroid2.network.MinedroidPacketHandler;
 import sourcecoded.minedroid2.network.PktMC1x00CommandToClient;
+import sourcecoded.minedroid2.util.ChatUtils;
 
 public class MinedroidCommandHandler {
 
@@ -27,6 +26,7 @@ public class MinedroidCommandHandler {
 		accepted.put("open", new MDCmdServerOpen());
 		accepted.put("kill", new MDCmdServerKill());
 		accepted.put("status", new MDCmdServerStatus());
+		accepted.put("usage", new MDCmdUsage());
 	}
 	
 	/**
@@ -44,7 +44,8 @@ public class MinedroidCommandHandler {
 			if (sender instanceof EntityPlayer)
 				MinedroidPacketHandler.INSTANCE.sendTo(new PktMC1x00CommandToClient(commandName, args), (EntityPlayerMP)sender);
 		} else {
-			sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Could not run command: " + commandName));
+//			sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Could not run command: " + commandName));
+			ChatUtils.sendCmdError("Could not run command: " + commandName, sender);
 		}
 	}
 	
@@ -59,7 +60,8 @@ public class MinedroidCommandHandler {
 			
 			theCommand.processClient(args);
 		} else {
-			Minedroid2.proxy.getClientPlayer().addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Could not run command: " + commandName));
+//			Minedroid2.proxy.getClientPlayer().addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Could not run command: " + commandName));
+			ChatUtils.sendError("Could not run command: " + commandName);
 		}
 	}
 	
@@ -80,17 +82,9 @@ public class MinedroidCommandHandler {
 		if (commandExists(commandName)) {
 			return ((MDCommand)accepted.get(commandName)).usage();
 		} else {
-			sendError("Could not find command: " + commandName);
+			ChatUtils.sendError("Could not find command: " + commandName);
 			return null;
 		}
-	}
-	
-	/**
-	 * Send a error message, usually for usage
-	 * @param message The message
-	 */
-	public static void sendError(String message) {
-		Minedroid2.proxy.getClientPlayer().addChatComponentMessage(new ChatComponentText(EnumChatFormatting.RED + message));
 	}
 	
 }

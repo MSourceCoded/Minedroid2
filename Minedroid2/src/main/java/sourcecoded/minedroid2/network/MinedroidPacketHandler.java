@@ -18,6 +18,7 @@ import cpw.mods.fml.common.network.FMLEmbeddedChannel;
 import cpw.mods.fml.common.network.FMLIndexedMessageToMessageCodec;
 import cpw.mods.fml.common.network.FMLOutboundHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.Side;
 
 public enum MinedroidPacketHandler {
@@ -27,6 +28,7 @@ public enum MinedroidPacketHandler {
 	public EnumMap<Side, FMLEmbeddedChannel> channels;
 
 	private MinedroidPacketHandler() {
+		System.err.println("Registering");
 		this.channels = NetworkRegistry.INSTANCE.newChannel("SC|MD", new MinedroidCodec());
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT){
             addClientHandlers();
@@ -36,6 +38,12 @@ public enum MinedroidPacketHandler {
         }
 	}
 
+	/**
+	 * Just here so I can call the constructor cleanly
+	 */
+	public void init() {
+	}
+	
 	private void addClientHandlers() {
 		FMLEmbeddedChannel channel = this.channels.get(Side.CLIENT);
 		String codec = channel.findChannelHandlerNameForType(MinedroidCodec.class);
@@ -70,6 +78,10 @@ public enum MinedroidPacketHandler {
 					IPacket msg) {
 				msg.decodeInto(ctx, dat, msg);
 			} 
+			
+			@Override
+			public void testMessageValidity(FMLProxyPacket msg) {
+		    }
 			
 		}
 		

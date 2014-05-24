@@ -8,10 +8,6 @@ import net.minecraft.command.WrongUsageException;
 
 public class MinedroidServerCommand extends CommandBase {
 
-	public MinedroidServerCommand() {
-		MinedroidCommandHandler.register();
-	}
-	
 	@Override
 	public String getCommandName() {
 		return "minedroid";
