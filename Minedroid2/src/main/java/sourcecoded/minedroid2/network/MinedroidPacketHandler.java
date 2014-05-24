@@ -41,6 +41,7 @@ public enum MinedroidPacketHandler {
 		String codec = channel.findChannelHandlerNameForType(MinedroidCodec.class);
 
 		channel.pipeline().addAfter(codec, "TENBTData", new PktMC0x01TENBTData());
+		channel.pipeline().addAfter("TENBTData", "CommandToClient", new PktMC1x00CommandToClient());
 	}
 
 	private void addServerHandlers() {
@@ -53,8 +54,9 @@ public enum MinedroidPacketHandler {
 		private class MinedroidCodec extends FMLIndexedMessageToMessageCodec<IPacket> {
 	
 			public MinedroidCodec() {
-				addDiscriminator(0, PktMC0x00TERequest.class);
-				addDiscriminator(1, PktMC0x01TENBTData.class);
+				addDiscriminator(00, PktMC0x00TERequest.class);
+				addDiscriminator(01, PktMC0x01TENBTData.class);
+				addDiscriminator(10, PktMC1x00CommandToClient.class);
 			}
 	
 			@Override
@@ -103,6 +105,24 @@ public enum MinedroidPacketHandler {
             dat.readBytes(abyte);
             return CompressedStreamTools.decompress(abyte);
         }
+    }
+    
+    public void writeStringArray(ByteBuf buffer, String[] data) throws IOException {
+    	buffer.writeShort(data.length);
+    	
+    	for (String curr : data) {
+    		writeString(buffer, curr);
+    	}
+    }
+    
+    public String[] readStringArray(ByteBuf buffer) throws IOException {
+    	String[] data = new String[buffer.readShort()];
+    	
+    	for (int i = 0; i < data.length; i++) {
+    		data[i] = readString(buffer);
+    	}
+    	
+    	return data;
     }
     
     public void writeString(ByteBuf buffer, String data) throws IOException

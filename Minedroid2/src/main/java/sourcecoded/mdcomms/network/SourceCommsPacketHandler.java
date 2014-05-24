@@ -14,6 +14,7 @@ import sourcecoded.mdcomms.network.packets.Pkt1x01NBTString;
 import sourcecoded.mdcomms.network.packets.Pkt1x02NBTMap;
 import sourcecoded.mdcomms.network.packets.Pkt1x03NBTCancel;
 import sourcecoded.mdcomms.network.packets.Pkt1x04ChatMessageUnf;
+import sourcecoded.mdcomms.network.packets.Pkt1x05ChatMessageSend;
 import sourcecoded.mdcomms.network.packets.Pkt2x00ComputerEvent;
 
 public enum SourceCommsPacketHandler {
@@ -36,6 +37,7 @@ public enum SourceCommsPacketHandler {
 			addDiscriminator(12, Pkt1x02NBTMap.class);
 			addDiscriminator(13, Pkt1x03NBTCancel.class);
 			addDiscriminator(14, Pkt1x04ChatMessageUnf.class);
+			addDiscriminator(15, Pkt1x05ChatMessageSend.class);
 			
 			addDiscriminator(20, Pkt2x00ComputerEvent.class);
 		}
