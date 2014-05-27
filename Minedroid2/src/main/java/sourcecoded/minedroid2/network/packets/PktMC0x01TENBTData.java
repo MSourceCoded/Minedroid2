@@ -29,7 +29,7 @@ public class PktMC0x01TENBTData extends SimpleChannelInboundHandler<PktMC0x01TEN
 
 	@Override
 	public void decodeInto(ChannelHandlerContext ctx, ByteBuf dat, IPacket msg) {
-		try {
+		try {	
 //			short theLength = dat.readShort();
 //			byte[] theTags = dat.readBytes(theLength).array();
 //			tags = CompressedStreamTools.decompress(theTags);

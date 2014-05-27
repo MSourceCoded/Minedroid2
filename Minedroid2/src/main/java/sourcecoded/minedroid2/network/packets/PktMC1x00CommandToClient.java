@@ -8,7 +8,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 public class PktMC1x00CommandToClient extends SimpleChannelInboundHandler<PktMC1x00CommandToClient> implements IPacket{
-
+	
 	String[] args;
 	String command;
 	
