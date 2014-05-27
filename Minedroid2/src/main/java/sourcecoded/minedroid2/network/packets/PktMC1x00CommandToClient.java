@@ -1,6 +1,8 @@
-package sourcecoded.minedroid2.network;
+package sourcecoded.minedroid2.network.packets;
 
 import sourcecoded.minedroid2.commandsystem.MinedroidCommandHandler;
+import sourcecoded.minedroid2.network.IPacket;
+import sourcecoded.minedroid2.network.MinedroidPacketHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

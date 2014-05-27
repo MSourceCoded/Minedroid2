@@ -1,9 +1,11 @@
-package sourcecoded.minedroid2.network;
+package sourcecoded.minedroid2.network.packets;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import net.minecraft.nbt.NBTTagCompound;
+import sourcecoded.minedroid2.network.IPacket;
+import sourcecoded.minedroid2.network.MinedroidPacketHandler;
 import sourcecoded.minedroid2.tick.TickHandler;
 
 public class PktMC0x01TENBTData extends SimpleChannelInboundHandler<PktMC0x01TENBTData> implements IPacket{

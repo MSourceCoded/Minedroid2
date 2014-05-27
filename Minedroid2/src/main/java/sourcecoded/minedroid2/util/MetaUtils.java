@@ -13,7 +13,7 @@ import sourcecoded.mdcomms.network.packets.Pkt1x02NBTMap;
 import sourcecoded.mdcomms.network.packets.Pkt1x03NBTCancel;
 import sourcecoded.mdcomms.socket.SourceCommsServer;
 import sourcecoded.minedroid2.network.MinedroidPacketHandler;
-import sourcecoded.minedroid2.network.PktMC0x00TERequest;
+import sourcecoded.minedroid2.network.packets.PktMC0x00TERequest;
 
 public class MetaUtils {
 

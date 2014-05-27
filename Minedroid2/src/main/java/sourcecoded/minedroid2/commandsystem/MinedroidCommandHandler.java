@@ -11,7 +11,7 @@ import sourcecoded.minedroid2.commandsystem.MinedroidCommands.MDCmdServerOpen;
 import sourcecoded.minedroid2.commandsystem.MinedroidCommands.MDCmdServerStatus;
 import sourcecoded.minedroid2.commandsystem.MinedroidCommands.MDCmdUsage;
 import sourcecoded.minedroid2.network.MinedroidPacketHandler;
-import sourcecoded.minedroid2.network.PktMC1x00CommandToClient;
+import sourcecoded.minedroid2.network.packets.PktMC1x00CommandToClient;
 import sourcecoded.minedroid2.util.ChatUtils;
 
 public class MinedroidCommandHandler {

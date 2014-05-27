@@ -7,6 +7,9 @@ import io.netty.channel.ChannelHandlerContext;
 import java.io.IOException;
 import java.util.EnumMap;
 
+import sourcecoded.minedroid2.network.packets.PktMC0x00TERequest;
+import sourcecoded.minedroid2.network.packets.PktMC0x01TENBTData;
+import sourcecoded.minedroid2.network.packets.PktMC1x00CommandToClient;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,7 +31,6 @@ public enum MinedroidPacketHandler {
 	public EnumMap<Side, FMLEmbeddedChannel> channels;
 
 	private MinedroidPacketHandler() {
-		System.err.println("Registering");
 		this.channels = NetworkRegistry.INSTANCE.newChannel("SC|MD", new MinedroidCodec());
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT){
             addClientHandlers();
