@@ -182,16 +182,16 @@ public class SourceCommsServer {
 	}
 
 	/**
-	 * Get the connection state of the server
-	 * @return connection state
-	 */
-	public boolean isConnected() {
-		return isConnected;
-	}
-	
-	/**
-	 * Sets the listening state of the server. Will stop the listen() thread.
-	 * @param listen The listening state to set
+     * Get the connection state of the server
+     * @return connection state
+     */
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    /**
+     * Sets the listening state of the server. Will stop the listen() thread.
+     * @param listen The listening state to set
 	 */
 	public void setListeningState(boolean listen) {
 		isListening = listen;

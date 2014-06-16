@@ -2,13 +2,13 @@
 {
   "modid": "minedroid",
   "name": "MineDroid",
-  "description": "Just a little MC-Android interface I made in a few weekends.",
+  "description": "Got an Android Phone/Tablet and love Minecraft? How about we put that hunk of metal to use. Presenting, MineDroid: A mod for minecraft and an android app that will allow you to view all kinds of data about the game you are playing, on your tablet!",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "http://www.mrsourcecoded.com",
-  "updateUrl": "",
-  "authors": ["MrSourceCoded"],
-  "credits": "ProfMobius for helping with the Waila-like NBT fetcher",
+  "url": "http://www.mrsourcecoded.com/mods/minedroid",
+  "updateUrl": "http://www.mrsourcecoded.com/mods/minedroid/archive",
+  "authorList": ["MrSourceCoded"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

@@ -20,3 +20,6 @@ gradlew
 Todo list
 server.properties
 /world
+/.idea
+/.settings
+/out
