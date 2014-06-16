@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import sourcecoded.mdcomms.socket.SourceCommsServer;
+import sourcecoded.minedroid2.util.ConfigUtils;
 import sourcecoded.minedroid2.util.MetaUtils;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -33,7 +34,10 @@ public class TickHandler {
 	public void onClientTick(TickEvent.ClientTickEvent e) {
 		tick++;
 		ItemStack targetStack = null;
-		if (tick == 10) {
+
+        int refresh = ConfigUtils.REFRESH_PROPERTY.getInt();
+
+		if (tick >= refresh) {
 			//Dispatch
 			if (SourceCommsServer.instance().isConnected()) {
 				World world = mc.theWorld;

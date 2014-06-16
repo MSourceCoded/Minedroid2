@@ -20,6 +20,7 @@ public class GuiScreenMinedroidPref extends GuiScreen {
     String title = "MineDroid Preferences";
 
     Property propertyPort;
+    Property refresh;
 
     /*
         BUTTON LISTS!
@@ -34,6 +35,7 @@ public class GuiScreenMinedroidPref extends GuiScreen {
         Text Fields
      */
     GuiTextField fieldPort;
+    GuiTextField refreshRate;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -41,6 +43,7 @@ public class GuiScreenMinedroidPref extends GuiScreen {
         Keyboard.enableRepeatEvents(true);
 
         propertyPort = ConfigUtils.PORT_PROPERTY;
+        refresh = ConfigUtils.REFRESH_PROPERTY;
 
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(BUTTON_DONE, this.width / 2 + 2, 200, 150, 20, "Done"));
@@ -50,10 +53,14 @@ public class GuiScreenMinedroidPref extends GuiScreen {
         this.buttonList.add(new GuiButton(BUTTON_KILL, this.width / 2 - 50, 175, 100, 20, "Kill Connection"));
         this.buttonList.add(new GuiButton(BUTTON_PING, this.width / 2 + 52, 175, 100, 20, "Ping Droid"));
 
-        fieldPort = new GuiTextField(this.fontRendererObj, this.width / 2 - 50, 27, 200, 20);
+        fieldPort = new GuiTextField(this.fontRendererObj, this.width / 2, 27, 150, 20);
         fieldPort.setFocused(true);
         fieldPort.setMaxStringLength(4);
         fieldPort.setText((String.valueOf(propertyPort.getInt())));
+
+        refreshRate = new GuiTextField(this.fontRendererObj, this.width / 2, 57, 150, 20);
+        refreshRate.setMaxStringLength(4);
+        refreshRate.setText((String.valueOf(refresh.getInt())));
     }
 
         @Override
@@ -64,12 +71,14 @@ public class GuiScreenMinedroidPref extends GuiScreen {
         @Override
         public void keyTyped(char typed, int par2) {
             this.fieldPort.textboxKeyTyped(typed, par2);
+            this.refreshRate.textboxKeyTyped(typed, par2);
         }
 
         @Override
         public void mouseClicked(int par1, int par2, int par3) {
             super.mouseClicked(par1, par2, par3);
             this.fieldPort.mouseClicked(par1, par2, par3);
+            this.refreshRate.mouseClicked(par1, par2, par3);
     }
 
     @Override
@@ -81,13 +90,16 @@ public class GuiScreenMinedroidPref extends GuiScreen {
             case BUTTON_SAVE:
                 try {
                     int portNumber = Integer.parseInt(fieldPort.getText());
+                    int refreshR = Integer.parseInt(refreshRate.getText());
                     CacheUtils.errorMessage = null;
 
                     propertyPort.set(portNumber);
+                    refresh.set(refreshR);
                     ConfigUtils.save();
                 } catch (Exception e) {
-                    CacheUtils.errorMessage = fieldPort.getText() + " is not a number :(";
+                    CacheUtils.errorMessage = "That is not a number :(";
                 }
+
                 break;
             case BUTTON_OPEN:
                 SourceCommsServer.instance().setData(propertyPort.getInt());
@@ -109,27 +121,30 @@ public class GuiScreenMinedroidPref extends GuiScreen {
         this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 5, 16777215);
 
         if (CacheUtils.errorMessage != null) {
-            this.drawCenteredString(this.fontRendererObj, CacheUtils.errorMessage, this.width / 2 + 50, 55, 16711680);
+            this.drawCenteredString(this.fontRendererObj, CacheUtils.errorMessage, this.width / 2 + 50, 85, 16711680);
         }
 
-        this.drawString(this.fontRendererObj, "Connected to Droid: ", this.width / 2 - 150, 70, 16755200);
-        this.drawString(this.fontRendererObj, "Listening for Packets: ", this.width / 2 - 150, 90, 16755200);
-        this.drawString(this.fontRendererObj, "Last Ping: ", this.width / 2 - 150, 110, 16755200);
+        this.drawString(this.fontRendererObj, "Connected to Droid: ", this.width / 2 - 150, 100, 16755200);
+        this.drawString(this.fontRendererObj, "Listening for Packets: ", this.width / 2 - 150, 120, 16755200);
+        this.drawString(this.fontRendererObj, "Last Ping: ", this.width / 2 - 150, 140, 16755200);
 
         if (SourceCommsServer.instance().isConnected())
-            this.drawString(this.fontRendererObj, "true", this.width / 2, 70, 34560);
+            this.drawString(this.fontRendererObj, "true", this.width / 2, 100, 34560);
         else
-            this.drawString(this.fontRendererObj, "false", this.width / 2, 70, 16737792);
+            this.drawString(this.fontRendererObj, "false", this.width / 2, 100, 16737792);
 
         if (SourceCommsServer.instance().isListening())
-            this.drawString(this.fontRendererObj, "true", this.width / 2, 90, 34560);
+            this.drawString(this.fontRendererObj, "true", this.width / 2, 120, 34560);
         else
-            this.drawString(this.fontRendererObj, "false", this.width / 2, 90, 16737792);
+            this.drawString(this.fontRendererObj, "false", this.width / 2, 120, 16737792);
 
-        this.drawString(this.fontRendererObj, String.valueOf(CacheUtils.pingCache) + " ms", this.width / 2, 110, 5636095);
+        this.drawString(this.fontRendererObj, String.valueOf(CacheUtils.pingCache) + " ms", this.width / 2, 140, 5636095);
 
         this.drawString(this.fontRendererObj, "Port Number", this.width / 2 - 150, 33, 16777215);
         fieldPort.drawTextBox();
+
+        this.drawString(this.fontRendererObj, "Refresh Rate (ticks)", this.width / 2 - 150, 63, 16777215);
+        refreshRate.drawTextBox();
 
 
         super.drawScreen(mouseX, mouseY, par3);
