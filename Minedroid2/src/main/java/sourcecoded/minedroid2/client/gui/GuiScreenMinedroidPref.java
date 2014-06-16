@@ -19,8 +19,6 @@ public class GuiScreenMinedroidPref extends GuiScreen {
 
     String title = "MineDroid Preferences";
 
-    String errorMessage = null;
-
     Property propertyPort;
 
     /*
@@ -83,12 +81,12 @@ public class GuiScreenMinedroidPref extends GuiScreen {
             case BUTTON_SAVE:
                 try {
                     int portNumber = Integer.parseInt(fieldPort.getText());
-                    errorMessage = null;
+                    CacheUtils.errorMessage = null;
 
                     propertyPort.set(portNumber);
                     ConfigUtils.save();
                 } catch (Exception e) {
-                    errorMessage = fieldPort.getText() + " is not a number :(";
+                    CacheUtils.errorMessage = fieldPort.getText() + " is not a number :(";
                 }
                 break;
             case BUTTON_OPEN:
@@ -110,8 +108,8 @@ public class GuiScreenMinedroidPref extends GuiScreen {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 5, 16777215);
 
-        if (errorMessage != null) {
-            this.drawCenteredString(this.fontRendererObj, this.errorMessage, this.width / 2 + 50, 55, 16711680);
+        if (CacheUtils.errorMessage != null) {
+            this.drawCenteredString(this.fontRendererObj, CacheUtils.errorMessage, this.width / 2 + 50, 55, 16711680);
         }
 
         this.drawString(this.fontRendererObj, "Connected to Droid: ", this.width / 2 - 150, 70, 16755200);

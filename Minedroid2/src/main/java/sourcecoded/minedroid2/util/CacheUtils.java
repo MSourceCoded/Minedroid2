@@ -4,4 +4,6 @@ public class CacheUtils {
 
     public static int pingCache = 0;
 
+    public static String errorMessage = null;
+
 }

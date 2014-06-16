@@ -1,6 +1,5 @@
 package sourcecoded.minedroid2.network.packets;
 
-import sourcecoded.minedroid2.commandsystem.MinedroidCommandHandler;
 import sourcecoded.minedroid2.network.IPacket;
 import sourcecoded.minedroid2.network.MinedroidPacketHandler;
 import io.netty.buffer.ByteBuf;
@@ -38,7 +37,7 @@ public class PktMC1x00CommandToClient extends SimpleChannelInboundHandler<PktMC1
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, PktMC1x00CommandToClient msg) throws Exception {
-		MinedroidCommandHandler.triggerClient(msg.command, msg.args);
-	}
+        System.err.println("Something Happened");
+    }
 
 }

@@ -16,8 +16,6 @@ import sourcecoded.mdcomms.network.packets.Pkt0x01PingReply;
 import sourcecoded.mdcomms.network.packets.Pkt1x05ChatMessageSend;
 import sourcecoded.mdcomms.socket.SourceCommsServer;
 import sourcecoded.mdcomms.util.PacketUtils;
-import sourcecoded.minedroid2.commandsystem.MinedroidCommandHandler;
-import sourcecoded.minedroid2.commandsystem.MinedroidServerCommand;
 import sourcecoded.minedroid2.events.MDEventHandler;
 import sourcecoded.minedroid2.network.MinedroidPacketHandler;
 import sourcecoded.minedroid2.tick.TickHandler;
@@ -59,13 +57,10 @@ public class Minedroid2 {
     	
     	MinedroidPacketHandler.INSTANCE.init();
     	
-		MinedroidCommandHandler.register();
-    	
     	SourceComms.init();
     	EventBus.Registry.register(Minedroid2.class);
     	
     	SourceCommsServer.instance().setData(1337);
-    	//SourceCommsServer.instance().open();
 
     	MinecraftForge.EVENT_BUS.register(this);
     	MinecraftForge.EVENT_BUS.register(new MDEventHandler());
@@ -77,7 +72,6 @@ public class Minedroid2 {
     
     @EventHandler
     public void serverStart(FMLServerStartingEvent event) {
-    	//event.registerServerCommand(new MinedroidServerCommand());        Dropped in favor of the menu alt
     }
     
     @SourceCommsEvent
@@ -88,6 +82,7 @@ public class Minedroid2 {
     
     @SourceCommsEvent
     public void onEnd(EventServerClosed e) {
+        CacheUtils.errorMessage = e.getReason();
     }
     
     @SourceCommsEvent
@@ -96,7 +91,6 @@ public class Minedroid2 {
     	
     	if (PacketUtils.compareClass(pkt, Pkt0x01PingReply.class)) {
     		Pkt0x01PingReply newPkt = (Pkt0x01PingReply)pkt;
-			//proxy.getClientPlayer().addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + "Ping: " + EnumChatFormatting.AQUA + newPkt.diffMS + "ms"));
             CacheUtils.pingCache = (int) newPkt.diffMS;
     	} else if (PacketUtils.compareClass(pkt, Pkt1x05ChatMessageSend.class)) {
     		Pkt1x05ChatMessageSend newPkt = (Pkt1x05ChatMessageSend)pkt;
