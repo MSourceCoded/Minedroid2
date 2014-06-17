@@ -5,7 +5,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import sourcecoded.mdcomms.network.packets.Pkt1x06WorldSeed;
 import sourcecoded.mdcomms.socket.SourceCommsServer;
+import sourcecoded.minedroid2.util.CacheUtils;
 import sourcecoded.minedroid2.util.ConfigUtils;
 import sourcecoded.minedroid2.util.MetaUtils;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -53,6 +55,11 @@ public class TickHandler {
 					}
 					//Dispatch a packet
 					meta.handleText(targetStack, world, player, targ);
+
+                    if (!CacheUtils.seedSendCache.isEmpty()) {
+                        SourceCommsServer.instance().sendToClient(new Pkt1x06WorldSeed(CacheUtils.seedSendCache.get(0)));
+                        CacheUtils.seedSendCache.remove(0);
+                    }
 				}
 			}
 			tick = 0;

@@ -17,6 +17,7 @@ import sourcecoded.mdcomms.network.packets.Pkt1x05ChatMessageSend;
 import sourcecoded.mdcomms.socket.SourceCommsServer;
 import sourcecoded.mdcomms.util.PacketUtils;
 import sourcecoded.minedroid2.events.MDEventHandler;
+import sourcecoded.minedroid2.events.WorldDataHandler;
 import sourcecoded.minedroid2.network.MinedroidPacketHandler;
 import sourcecoded.minedroid2.tick.TickHandler;
 import sourcecoded.minedroid2.util.CacheUtils;
@@ -64,6 +65,7 @@ public class Minedroid2 {
 
     	MinecraftForge.EVENT_BUS.register(this);
     	MinecraftForge.EVENT_BUS.register(new MDEventHandler());
+    	MinecraftForge.EVENT_BUS.register(new WorldDataHandler());
     }
     
     @EventHandler
