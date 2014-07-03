@@ -7,6 +7,7 @@ import io.netty.channel.ChannelHandlerContext;
 import java.io.IOException;
 import java.util.EnumMap;
 
+import net.minecraft.nbt.NBTSizeTracker;
 import sourcecoded.minedroid2.network.packets.PktMC0x00TERequest;
 import sourcecoded.minedroid2.network.packets.PktMC0x01TENBTData;
 import sourcecoded.minedroid2.network.packets.PktMC1x00CommandToClient;
@@ -117,7 +118,8 @@ public enum MinedroidPacketHandler {
         else{
             byte[] abyte = new byte[short1];
             dat.readBytes(abyte);
-            return CompressedStreamTools.decompress(abyte);
+            //return CompressedStreamTools.decompress(abyte);
+            return CompressedStreamTools.func_152457_a(abyte, NBTSizeTracker.field_152451_a);
         }
     }
     
@@ -149,8 +151,7 @@ public enum MinedroidPacketHandler {
     public String readString(ByteBuf buffer) throws IOException
     {
         int j = buffer.readShort();
-        String s = new String(buffer.readBytes(j).array(), Charsets.UTF_8);
-        return s;
+        return new String(buffer.readBytes(j).array(), Charsets.UTF_8);
     } 
     
     public void writeInt(ByteBuf buffer, int data) throws IOException

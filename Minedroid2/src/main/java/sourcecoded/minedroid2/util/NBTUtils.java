@@ -10,17 +10,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagByte;
-import net.minecraft.nbt.NBTTagByteArray;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagEnd;
-import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagShort;
-import net.minecraft.nbt.NBTTagString;
+import net.minecraft.nbt.*;
 
 public class NBTUtils {
 
@@ -105,7 +95,8 @@ public class NBTUtils {
 		{
 			byte[] abyte = new byte[short1];
 			par0DataInputStream.readFully(abyte);
-			return CompressedStreamTools.decompress(abyte);
+			//return CompressedStreamTools.decompress(abyte);
+			return CompressedStreamTools.func_152457_a(abyte, NBTSizeTracker.field_152451_a);
 		}
 	}   	
 
